@@ -4,7 +4,7 @@
 var casper = require('casper').create({
     verbose: true,
     logLevel: 'error',
-    clientScripts: ["vendor/jquery.min.js", "vendor/lodash.js"]
+    clientScripts: ["public/lib/jquery.min.js", "public/lib/lodash.js"]
 });
 
 var fs = require('fs'),
