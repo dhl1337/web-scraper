@@ -10,8 +10,10 @@
         $stateProvider
             .state('home', {
                 url: '/home',
-                templateUrl: '../views/home.html'
+                templateUrl: '../public/app/views/home.html',
+                controller: 'HomeController',
+                controllerAs: 'home'
             });
         $urlRouterProvider.otherwise('/home');
     }
-});
+})();

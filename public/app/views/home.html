@@ -1,1 +1,21 @@
-<h1>hello</h1>
+<div class="ui grid container">
+    <div class="eight wide column">
+        <div class="header">Title</div>
+        <div class="ui list" ng-repeat="title in home.data[0].title">
+            <div class="item">
+                {{title}}
+            </div>
+        </div>
+    </div>
+    <div class="eight wide column">
+        <div class="header">Price</div>
+        <div class="ui list" ng-repeat="price in home.data[0].price track by $index">
+            <div class="item">
+                <div class="content">
+                    {{price}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,26 +9,18 @@ var casper = require('casper').create({
 
 var fs = require('fs'),
     url = 'http://www.ksl.com/?nid=231&cat=554&category=16',
-    link = [],
     title = [],
     price = [],
     output = [];
 
 function outputJSON() {
     output.push({
-        link: link,
         title: title,
         price: price
     });
     return JSON.stringify(output);
 }
 
-function getLink() {
-    var link = $('.adBox a');
-    return _.map(link, function(e) {
-        return e.getAttribute('href');
-    })
-}
 function getTitle() {
     var title = $('.adTitle a');
     return _.map(title, function(e) {
@@ -38,15 +30,14 @@ function getTitle() {
 function getPrice() {
     var price = $('.priceBox a');
     return _.map(price, function(e) {
-        return e.innerText.replace(/\00.*$/g,"");
+        return e.innerText.replace(/\'span.priceCents'/g,"");
     })
 }
 
 casper.start(url, function() {
     this.echo(this.getTitle());
-    this.sendKeys('input#minPriceInput', '800');
-    this.sendKeys('input#maxPriceInput', '1000');
-    this.click('input#priceSubmit');
+    this.sendKeys('input#keywordInput', 'MacBook Pro');
+    this.click('input#searchSubmit');
 });
 
 casper.waitForSelector('.adBox', function() {
@@ -54,7 +45,9 @@ casper.waitForSelector('.adBox', function() {
 });
 
 casper.then(function() {
-    link = this.evaluate(getLink);
+    this.sendKeys('input#minPriceInput', '800');
+    this.sendKeys('input#maxPriceInput', '1000');
+    this.click('input#priceSubmit');
 });
 
 casper.then(function() {
